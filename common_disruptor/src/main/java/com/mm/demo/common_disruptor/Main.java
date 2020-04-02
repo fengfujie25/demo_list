@@ -5,6 +5,7 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.mm.demo.common_disruptor.entity.Data;
+import com.mm.demo.common_disruptor.process.DataProcess;
 import com.mm.demo.common_disruptor.process.Serial;
 import com.mm.demo.common_disruptor.translator.DataEventTranslator;
 
@@ -66,19 +67,20 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-        DataFactory factory = new DataFactory();
-
-        Disruptor<Data> disruptor = new Disruptor<Data>(factory, BUFFER, Executors.defaultThreadFactory(), ProducerType.MULTI, new BlockingWaitStrategy());
-
-        Serial.serial(disruptor);
-//        Parallel.parallel(disruptor);
-
-        RingBuffer<Data> ringBuffer = disruptor.getRingBuffer();
-        for (int i = 0; i < 2; i++) {
-            ringBuffer.publishEvent(new DataEventTranslator(), (long)i);
-        }
-        disruptor.shutdown();
-//        ringBuffer.publishEvent(new DataEventTranslator(), 10L);
-
+//        DataFactory factory = new DataFactory();
+//
+//        Disruptor<Data> disruptor = new Disruptor<Data>(factory, BUFFER, Executors.defaultThreadFactory(), ProducerType.MULTI, new BlockingWaitStrategy());
+//
+//        Serial.serial(disruptor);
+////        Parallel.parallel(disruptor);
+//
+//        RingBuffer<Data> ringBuffer = disruptor.getRingBuffer();
+//        for (int i = 0; i < 2; i++) {
+//            ringBuffer.publishEvent(new DataEventTranslator(), (long)i);
+//        }
+//        disruptor.shutdown();
+////        ringBuffer.publishEvent(new DataEventTranslator(), 10L);
+        DataProcess process = new DataProcess();
+        process.run();
     }
 }
