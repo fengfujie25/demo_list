@@ -23,9 +23,33 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-
+        try {
+            chat();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            release();
+        }
     }
 
+    private void release() {
+        try {
+            if (socket != null) {
+                socket.close();
+            }
+        } catch (IOException e) {
+            if (socket != null) {
+                SocketCleaningTracker.tracker(socket);
+            }
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 存在问题
+     *
+     * @throws IOException
+     */
     private void chat() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintStream printStream = new PrintStream(socket.getOutputStream());
@@ -41,7 +65,6 @@ public class ClientHandler implements Runnable {
             }
             printStream.println("server : " + received);
             printStream.flush();
-            printStream.close();
         }
     }
 }
