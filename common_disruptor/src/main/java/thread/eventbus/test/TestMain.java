@@ -2,7 +2,6 @@ package thread.eventbus.test;
 
 import thread.eventbus.AsyncEventBus;
 import thread.eventbus.Bus;
-import thread.eventbus.EventBus;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;

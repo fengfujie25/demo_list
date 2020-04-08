@@ -1,8 +1,5 @@
 package thread.eventbus;
 
-import org.w3c.dom.events.EventException;
-import sun.jvm.hotspot.asm.Register;
-
 import java.util.concurrent.Executor;
 
 /**
