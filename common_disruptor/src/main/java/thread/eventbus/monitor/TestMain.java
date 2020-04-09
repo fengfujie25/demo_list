@@ -19,6 +19,22 @@ public class TestMain {
         eventBus.register(new FileChangeListener());
 
         DirectoryTargetMonitor monitor = new DirectoryTargetMonitor(eventBus, "/Users/fengfujie/");
-        monitor.startMonitor();
+//        monitor.startMonitor();
+
+        new Thread(() -> {
+            try {
+                monitor.startMonitor();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                monitor.stopMonitor();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }
